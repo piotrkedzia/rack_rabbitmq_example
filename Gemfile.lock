@@ -3,6 +3,8 @@ GEM
   specs:
     diff-lcs (1.2.5)
     rack (1.6.4)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -22,6 +24,7 @@ PLATFORMS
 
 DEPENDENCIES
   rack
+  rack-test
   rspec
 
 BUNDLED WITH

@@ -11,12 +11,10 @@ default_amqp_connection: &default_amqp_connection
 development:
   amqp_connection:
     <<: *default_amqp_connection
-    
-  gueue: 'oracle_inbox'
+  queue: 'oracle_inbox'
 
 test:
   amqp_connection:
     <<: *default_amqp_connection
-    
-  gueue: 'test_gueue'
+  queue: 'test_queue'
   

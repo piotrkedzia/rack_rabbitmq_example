@@ -1,12 +1,13 @@
 require 'spec_helper'
 require 'rack/test'
 require './app/amqp_sender_app'
+require 'pry'
 
-describe "Sender rack app" do
+describe "AMQP Sender rack app" do
   include Rack::Test::Methods
   
   def app
-    Sender.new
+    AmqpSenderApp.new
   end
   
   describe 'GET home page' do

@@ -1,0 +1,22 @@
+default_amqp_connection: &default_amqp_connection
+  host: "127.0.0.1"
+  port: 5672
+  ssl: false
+  vhost: "/"
+  user: "guest"
+  pass: "guest"
+  frame_max: 131072
+  auth_mechanism: "PLAIN"
+
+development:
+  amqp_connection:
+    <<: *default_amqp_connection
+    
+  gueue: 'oracle_inbox'
+
+test:
+  amqp_connection:
+    <<: *default_amqp_connection
+    
+  gueue: 'test_gueue'
+  

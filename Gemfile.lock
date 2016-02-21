@@ -1,6 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    amq-protocol (2.0.1)
+    bunny (2.2.2)
+      amq-protocol (>= 2.0.1)
+    byebug (8.2.1)
     coderay (1.1.1)
     diff-lcs (1.2.5)
     method_source (0.8.2)
@@ -8,6 +12,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -30,7 +37,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bunny
   pry
+  pry-byebug
   rack
   rack-test
   rspec

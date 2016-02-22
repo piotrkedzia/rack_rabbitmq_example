@@ -23,10 +23,10 @@ describe "AMQP sender rack app" do
     end
 
     it 'returns proper request code' do
-      last_response.status == 200
+      expect(last_response.status).to eq(200)
     end
 
-    it 'has send form' do
+    it 'has message form' do
       expect(last_response.body).to have_selector('form')
     end
 
@@ -34,7 +34,7 @@ describe "AMQP sender rack app" do
       expect(last_response.body).to have_button('Submit')
     end
 
-    it 'has input message input field' do
+    it 'has message input field' do
       expect(last_response.body).to have_field('message')
     end
 
@@ -72,7 +72,7 @@ describe "AMQP sender rack app" do
         post '/send_message', 'invalid_message_key' => message
       end
 
-      it 'return 422 Unprocessable Entity code' do
+      it 'returns 422 Unprocessable Entity code' do
         expect(last_response.status).to eq(422)
       end
 
@@ -85,11 +85,11 @@ describe "AMQP sender rack app" do
   describe 'GET invalid route' do
     before(:each) { get '/fake_route' }
 
-    it 'return 404 Not Found status code' do
+    it 'returns 404 Not Found status code' do
       expect(last_response.status).to eq(404)
     end
 
-    it 'displays home page' do
+    it 'redirects to root page' do
       expect(last_response.body).to include('leave the message')
     end
   end

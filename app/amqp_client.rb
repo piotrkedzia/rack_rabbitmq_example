@@ -1,14 +1,16 @@
-require "bunny"
-require 'pry'
-require 'pry-byebug'
+require 'bunny'
 
-class Receiver
+class MqClient
   
-  def initialize(queue_name = 'oracle_inbox', options = {})
-    @conn = Bunny.new(options)
+  def initialize(queue_name, options = {})
+    @conn = Bunny.new(options['amqp_connection'])
     @conn.start
     @ch = @conn.create_channel
     @q = @ch.queue(queue_name)
+  end
+  
+  def send_message(message = 'hello!')
+    @ch.default_exchange.publish(message, :routing_key => @q.name)
   end
   
   def listen_messages
@@ -23,9 +25,7 @@ class Receiver
   end
   
   def purge_queue
-    puts "Messages before purge: #{@q.message_count}"
     @q.purge
-    puts "Messages after purge: #{@q.message_count}"
   end
   
   def unread_messages_count
@@ -35,9 +35,5 @@ class Receiver
   def close_connection
     @conn.close
   end
-end
 
-
-if ARGV.include? 'run'
-  Receiver.new(ARGV[0]).listen_messages
 end

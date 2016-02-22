@@ -1,9 +1,9 @@
-require_relative 'amqp_sender'
+require_relative 'amqp_client'
 require 'erb'
 class AmqpSenderApp
 
   def initialize
-    @amqp_sender = Sender.new(APP_CONFIG['queue'], APP_CONFIG['amqp_connection'])
+    @amqp_sender = MqClient.new(APP_CONFIG['queue'], APP_CONFIG['amqp_connection'])
   end
 
   def call(env)

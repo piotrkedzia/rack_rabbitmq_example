@@ -3,10 +3,10 @@ require 'rack/test'
 require 'pry'
 require 'capybara/rspec'
 require './app/amqp_sender_app'
-require './app/amqp_receiver'
+require './app/amqp_client'
 
 
-describe "AMQP Sender rack app" do
+describe "AMQP sender rack app" do
   include Rack::Test::Methods
   include Capybara::RSpecMatchers
 
@@ -42,7 +42,7 @@ describe "AMQP Sender rack app" do
 
   describe 'POST message' do
     let(:message) { 'example message' }
-    let(:receiver) { Receiver.new(APP_CONFIG['queue'], APP_CONFIG['amqp_connection']) }
+    let(:receiver) { MqClient.new(APP_CONFIG['queue'], APP_CONFIG['amqp_connection']) }
 
     before :each do
       receiver.purge_queue

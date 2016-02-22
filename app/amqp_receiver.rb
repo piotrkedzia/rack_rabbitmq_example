@@ -27,6 +27,14 @@ class Receiver
     @q.purge
     puts "Messages after purge: #{@q.message_count}"
   end
+  
+  def unread_messages_count
+    @q.message_count
+  end
+  
+  def close_connection
+    @conn.close
+  end
 end
 
 

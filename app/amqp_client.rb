@@ -1,39 +1,39 @@
 require 'bunny'
 
 class MqClient
-  
+
   def initialize(queue_name, options = {})
-    @conn = Bunny.new(options['amqp_connection'])
-    @conn.start
-    @ch = @conn.create_channel
-    @q = @ch.queue(queue_name)
+    @connection = Bunny.new(options['amqp_connection'])
+    @connection.start
+    @channel = @connection.create_channel
+    @queue = @channel.queue(queue_name)
   end
-  
+
   def send_message(message = 'hello!')
-    @ch.default_exchange.publish(message, :routing_key => @q.name)
+    @channel.default_exchange.publish(message, :routing_key => @queue.name)
   end
-  
-  def listen_messages
+
+  def listen_and_print_messages
     begin
-      puts " [*] Waiting for messages from <#{@q.name}>.\n To exit press CTRL+C"
-      @q.subscribe(:block => true) do |delivery_info, properties, body|
+      puts " [*] Waiting for messages from <#{@queue.name}>.\n To exit press CTRL+C"
+      @queue.subscribe(:block => true) do |delivery_info, properties, body|
         puts " [x] Received #{body}"
       end
     rescue Interrupt => _
-      @conn.close
+      @connection.close
     end
   end
-  
+
   def purge_queue
-    @q.purge
+    @queue.purge
   end
-  
+
   def unread_messages_count
-    @q.message_count
+    @queue.message_count
   end
-  
+
   def close_connection
-    @conn.close
+    @connection.close
   end
 
 end

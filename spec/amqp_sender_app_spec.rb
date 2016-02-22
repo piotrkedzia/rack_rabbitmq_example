@@ -2,9 +2,11 @@ require 'spec_helper'
 require 'rack/test'
 require './app/amqp_sender_app'
 require 'pry'
+require 'capybara/rspec'
 
 describe "AMQP Sender rack app" do
   include Rack::Test::Methods
+  include Capybara::RSpecMatchers
   
   def app
     AmqpSenderApp.new
@@ -14,16 +16,24 @@ describe "AMQP Sender rack app" do
     before :each do
       get '/'
     end
-    it 'returns home page' do  
-      expect(last_response).to include("leave the message")
+    it 'has proper welcome text' do  
+      expect(last_response.body).to include("leave the message")
     end
     
     it 'returns proper request code' do
       last_response.status == 200
     end
     
-    it 'returns send form' do
-      last_response.should have_tag("form")
+    it 'has send form' do
+      expect(last_response.body).to have_selector('form')
+    end
+    
+    it 'has submit button' do
+      expect(last_response.body).to have_button('Submit')
+    end
+    
+    it 'has input message input field' do
+      expect(last_response.body).to have_field('message')
     end
     
   end

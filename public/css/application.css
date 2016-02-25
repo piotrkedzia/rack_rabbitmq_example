@@ -1,0 +1,32 @@
+body {
+  padding-top: 50px;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+    background-image: url(/images/matrix-know-thyself.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    max-width: 900px;
+    margin: auto;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+.form-template {
+  margin: auto;
+  max-width: 400px;
+}
+
+label, button, input {
+  margin-bottom: 10px;
+}
